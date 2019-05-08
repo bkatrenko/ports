@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+message Port {
+    string name = 1;
+    string city = 2;
+    string country = 3;
+    repeated string alias = 4;
+    repeated string regions = 5;
+    repeated float coordinates = 6;
+    string province = 7;
+    string timezone = 8;
+    repeated string unlocks = 9;
+    string code = 10;
+}
+
+message GetPortsRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+}
+
+message GetPortsResponse {
+    map<string, Port> ports = 1;
+}
+
+service ClientService {
+    rpc GetPorts(GetPortsRequest) returns (GetPortsResponse);
+}
+
+message PutPortsRequest {
+    map<string, Port> ports = 1;
+}
+
+message PutPortsResponse {
+    // empty
+}
+
+service PortsDomainService {
+    rpc PutPorts(PutPortsRequest) returns (PutPortsResponse);
+    rpc GetPorts(GetPortsRequest) returns (GetPortsResponse);
+}
+

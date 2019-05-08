@@ -1,0 +1,39 @@
+version: '3.5'
+services:
+  ports_client_app:
+    container_name: 'ports_client_app'
+    build:
+      context: .
+      dockerfile: docker/ClientApp
+    restart: 'on-failure'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - ports_domain_app
+    networks:
+      - ports_net  
+
+  ports_domain_app:
+    container_name: 'ports_domain_app'
+    build:
+      context: .
+      dockerfile: docker/DomainApp
+    restart: 'on-failure'
+    ports:
+      - '8081:8081'
+    depends_on:
+      - mongo  
+    networks:
+      - ports_net  
+    
+  mongo:
+    image: mongo:latest
+    container_name: "mongo"
+    ports:
+      - 27017:27017
+    networks:
+      - ports_net    
+
+networks:
+  ports_net:
+    name: ports_net   
