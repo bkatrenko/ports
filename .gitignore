@@ -1,2 +1,4 @@
 cmd/client/client
 cmd/domain/domain
+
+.DS_Store
